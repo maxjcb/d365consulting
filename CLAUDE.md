@@ -15,6 +15,16 @@ This repository is a personal multi-agent setup for a Senior Consultant focused 
 - [project-customer-manager.md](.claude/agents/project-customer-manager.md) — status reports, customer emails, meeting minutes, risk/issue tracking.
 - [presales-architect.md](.claude/agents/presales-architect.md) — solution design, demos, estimates, RFP/proposal content.
 
+## Global availability of agents
+
+The agent files in `.claude/agents/` are hardlinked into `~/.claude/agents/` (user-level), so they're automatically available in any project folder you open Claude Code in — not just this repo. Edit either copy; both point to the same file content. If a hardlink ever breaks (e.g. OneDrive replaces a file during sync), re-create it: `New-Item -ItemType HardLink -Path <global path> -Target <repo path> -Force`.
+
+## Project-specific context
+
+Client/engagement context (current project, your role on it, stakeholders, status, decisions) does **not** belong in this repo — this repo is shared, client-agnostic knowledge. Keep each engagement's context in that project's own working folder, as its own `CLAUDE.md`, separate from this one. That folder picks up the global agents automatically (see above) without exposing client data here.
+
+Use [templates/PROJECT-CONTEXT-TEMPLATE.md](templates/PROJECT-CONTEXT-TEMPLATE.md) as the starting point for a new project folder's `CLAUDE.md`.
+
 ## MCP servers
 
 - `microsoft-learn` ([.mcp.json](.mcp.json)) — official Microsoft Learn MCP server (`microsoft_docs_search`, `microsoft_docs_fetch`, `microsoft_code_sample_search`), no auth required. Use it to verify current Microsoft docs/behavior instead of relying on potentially outdated knowledge, especially for Power Platform, Copilot Studio, and D365 Sales specifics that change frequently.
