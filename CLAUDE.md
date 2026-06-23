@@ -1,0 +1,26 @@
+# D365 Consulting Assistant
+
+This repository is a personal multi-agent setup for a Senior Consultant focused on **Dynamics 365 Sales, Power Platform, Microsoft 365 Copilot, and Copilot Studio**. It uses Claude Code subagents (defined in [.claude/agents/](.claude/agents/)) so that requests get handled by the agent best suited to the topic, instead of one generic assistant trying to cover everything.
+
+## How this works
+
+- Each file in `.claude/agents/` is a Claude Code subagent with its own focus area, written so Claude delegates to it automatically based on the request — you don't need to invoke agents by name.
+- Use this repo as a place to accumulate reusable knowledge (client-agnostic): functional/configuration know-how, customizing patterns, communication templates, estimation heuristics. Don't store client-confidential data here.
+- When you learn something durable during a session (a useful pattern, a recurring pitfall, a template that worked well), add it to the relevant agent file instead of letting it stay only in chat history.
+
+## Agents
+
+- [functional-consultant.md](.claude/agents/functional-consultant.md) — D365 Sales process & configuration, security model, fit-gap analysis, functional specs.
+- [technical-consultant.md](.claude/agents/technical-consultant.md) — Power Platform (Power Apps, Power Automate, Dataverse), Copilot Studio, M365 Copilot extensibility, ALM/DevOps.
+- [project-customer-manager.md](.claude/agents/project-customer-manager.md) — status reports, customer emails, meeting minutes, risk/issue tracking.
+- [presales-architect.md](.claude/agents/presales-architect.md) — solution design, demos, estimates, RFP/proposal content.
+
+## MCP servers
+
+- `microsoft-learn` ([.mcp.json](.mcp.json)) — official Microsoft Learn MCP server (`microsoft_docs_search`, `microsoft_docs_fetch`, `microsoft_code_sample_search`), no auth required. Use it to verify current Microsoft docs/behavior instead of relying on potentially outdated knowledge, especially for Power Platform, Copilot Studio, and D365 Sales specifics that change frequently.
+
+## Conventions
+
+- Write everything in English.
+- Keep agent files as living documents, organized by topic, not chronologically.
+- Prefer concrete checklists and templates over abstract advice — these get reused under time pressure.
