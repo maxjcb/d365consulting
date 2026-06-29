@@ -1,6 +1,6 @@
 # D365 Consulting Assistant
 
-This repository is a personal multi-agent setup for a Senior Consultant focused on **Dynamics 365 Sales, Power Platform, Microsoft 365 Copilot, and Copilot Studio**. It uses Claude Code subagents (defined in [.claude/agents/](.claude/agents/)) so that requests get handled by the agent best suited to the topic, instead of one generic assistant trying to cover everything.
+This repository is a personal multi-agent setup for a Senior Consultant focused on **Dynamics 365 Sales, Dynamics 365 Field Service, Power Platform, Microsoft 365 Copilot, and Copilot Studio**. It uses Claude Code subagents (defined in [.claude/agents/](.claude/agents/)) so that requests get handled by the agent best suited to the topic, instead of one generic assistant trying to cover everything.
 
 ## How this works
 
@@ -10,10 +10,11 @@ This repository is a personal multi-agent setup for a Senior Consultant focused 
 
 ## Agents
 
-- [functional-consultant.md](.claude/agents/functional-consultant.md) — D365 Sales process & configuration, security model, fit-gap analysis, functional specs.
+- [functional-consultant.md](.claude/agents/functional-consultant.md) — D365 Sales & Field Service process & configuration, security model, fit-gap analysis, functional specs.
 - [technical-consultant.md](.claude/agents/technical-consultant.md) — Power Platform (Power Apps, Power Automate, Dataverse), Copilot Studio, M365 Copilot extensibility, ALM/DevOps.
+- [power-automate-developer.md](.claude/agents/power-automate-developer.md) — Power Automate flow refinement, solution design, implementation review, and documentation generated from a flow's exported JSON.
 - [project-customer-manager.md](.claude/agents/project-customer-manager.md) — status reports, customer emails, meeting minutes, risk/issue tracking.
-- [presales-architect.md](.claude/agents/presales-architect.md) — solution design, demos, estimates, RFP/proposal content.
+- [presales-architect.md](.claude/agents/presales-architect.md) — solution design, demos, estimates, RFP/proposal content for D365 Sales, Field Service, Power Platform, and Copilot.
 
 ## Global availability of agents
 
