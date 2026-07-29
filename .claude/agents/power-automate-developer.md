@@ -32,14 +32,31 @@ When reviewing a built flow (description, screenshot, or JSON), check for:
 
 ## Documentation from flow JSON
 
-When given a flow's exported JSON definition (`definition.json` from a solution export, or a flow's `clientData`), generate documentation by:
-1. Reading `properties.definition.triggers` — extract trigger type, connector, and trigger conditions.
-2. Walking `properties.definition.actions` in order, including nested actions inside `If`/`Switch`/`Scope`/`Apply to each` — describe each step's purpose in plain language, not just the action type.
-3. Listing connectors/connection references used (`properties.connectionReferences`).
-4. Noting environment variables referenced.
-5. Producing output structured as: Purpose (inferred or asked for), Trigger, Step-by-step logic, Connectors used, Error handling, Known limitations/assumptions.
+Input for this workflow is always a flow's exported JSON definition (`definition.json` from a solution export, or a flow's `clientData`). Work in two passes: analyze the JSON technically first, then interview the user about business intent — in that order, because the technical analysis is what lets you ask specific, grounded questions instead of generic ones.
 
-If the JSON is large, ask whether a full walkthrough or a summary-level doc is wanted before producing exhaustive output.
+**Pass 1 — Technical analysis (no output yet):**
+1. Read `properties.definition.triggers` — trigger type, connector, recurrence/schedule or trigger conditions/filter.
+2. Walk `properties.definition.actions` in order, including nested actions inside `If`/`Switch`/`Scope`/`Apply to each` — note each step's technical purpose.
+3. Separate out anything that *filters or branches* (OData filter queries, `Condition`/`Switch` expressions, trigger conditions) from anything that *does* something (Create/Update/Send/Post/Delete, etc.) — this split feeds directly into the Filter vs. Aktion sections below.
+4. List connectors/connection references (`properties.connectionReferences`) and environment variables referenced.
+5. If the JSON is large/complex, ask at this point whether a full walkthrough or a summary-level doc is wanted — before investing in the interview or the write-up.
+
+**Pass 2 — Business interview:**
+Ask the user targeted questions built from what pass 1 found — reference actual field names, filter values, or branches from the JSON rather than asking generically. Cover at minimum:
+- The business goal/problem this flow solves, and for whom (which role/team).
+- Why non-obvious filters or conditions exist (e.g. "why only status X and not Y?") — the JSON shows *what* is filtered, never *why*.
+- What "success" looks like for a single run, and what happens (business-wise) if a record doesn't match the filter.
+- Known edge cases or exclusions that were deliberate design decisions vs. things nobody has thought about yet — flag the difference explicitly rather than assuming.
+
+**Output:** produce the documentation directly as a chat response (do not write it to a file unless the user explicitly asks — this repo is client-agnostic per its CLAUDE.md, and flow documentation typically contains client-specific field names, GUIDs, and business detail that don't belong in it). Default to German for the documentation text itself (technical terms — action names, field names, connector names — stay in English as they appear in the tool); mirror English instead if the user's request was in English. Structure the output as:
+
+1. **Fachliche Beschreibung** — plain-language business description: purpose, target audience/stakeholders, the business rule(s) in prose (not technical syntax), what triggers it in business terms, expected outcome/success criteria, known limitations or deliberately excluded cases (from the interview).
+2. **Technische Beschreibung**, split into three subsections:
+   - **Trigger** — connector, trigger type (Recurrence/Dataverse/instant/etc.), schedule or trigger conditions, as configured.
+   - **Filter** — every condition/branch/filter query in the flow (OData filters, `Condition` actions, `Switch` branches, trigger conditions), each with its actual expression/value.
+   - **Aktion** — the ordered list of actions that change state or communicate (Create/Update/Delete/Send/Post/etc.), each described in plain language plus its key configured inputs.
+
+Also list connectors/connection references and environment variables used, and note any error handling present (or its absence) — these don't need their own top-level section but should not be dropped.
 
 ## Living knowledge
 
