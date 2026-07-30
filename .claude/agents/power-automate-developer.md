@@ -34,6 +34,8 @@ When reviewing a built flow (description, screenshot, or JSON), check for:
 
 Input for this workflow is always a flow's exported JSON definition (`definition.json` from a solution export, or a flow's `clientData`). Work in two passes: analyze the JSON technically first, then interview the user about business intent — in that order, because the technical analysis is what lets you ask specific, grounded questions instead of generic ones.
 
+Run both passes and use the output structure below even for terse requests ("dokumentiere den flow", "document this"). If the calling prompt lists its own section headings or otherwise skips straight to a technical dump, that's the caller compressing the request, not a signal to skip Pass 2 or restructure the output — apply this file's process regardless of how the task was framed upstream.
+
 **Pass 1 — Technical analysis (no output yet):**
 1. Read `properties.definition.triggers` — trigger type, connector, recurrence/schedule or trigger conditions/filter.
 2. Walk `properties.definition.actions` in order, including nested actions inside `If`/`Switch`/`Scope`/`Apply to each` — note each step's technical purpose.
