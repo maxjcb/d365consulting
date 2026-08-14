@@ -15,6 +15,7 @@ This repository is a personal multi-agent setup for a Senior Consultant focused 
 - [power-automate-developer.md](.claude/agents/power-automate-developer.md) — Power Automate flow refinement, solution design, implementation review, and documentation generated from a flow's exported JSON.
 - [project-customer-manager.md](.claude/agents/project-customer-manager.md) — status reports, customer emails, meeting minutes, risk/issue tracking.
 - [presales-architect.md](.claude/agents/presales-architect.md) — solution design, demos, estimates, RFP/proposal content for D365 Sales, Field Service, Power Platform, and Copilot.
+- [certification-coach.md](.claude/agents/certification-coach.md) — Microsoft Business Applications certification path guidance, exam prep, and practice questions (Dynamics 365, Power Platform, Copilot/AI role-based certs).
 
 ## Global availability of agents
 
