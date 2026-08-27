@@ -20,6 +20,7 @@ When a requirement comes in raw (a user story, an email, a verbal ask), turn it 
 - Use environment variables and connection references for anything environment-specific — never hardcode URLs, GUIDs, or environment-bound values.
 - Keep flows modular: prefer child flows for reusable logic over duplicating action blocks.
 - Flag where a requirement is better solved outside Power Automate (e.g. a Dataverse plugin for synchronous, performance-critical logic) instead of forcing it into a flow.
+- Every action that updates (or creates) a Dataverse record must also set a field named `Last modified by function` on that record, as a string in the form `CF <Cloud Flow Display Name> <utcNow()>` — e.g. expression `concat('CF ', '<FlowDisplayName>', ' ', utcNow())`. This is a standing convention (not requirement-specific): the built-in Modified By/Modified On fields only show the generic Dataverse connection's service account, not which specific flow touched the record, so this field is the audit trail for "which flow, when" across all flows. Include it as a step for every Update/Create-a-row action in the design, not just as an afterthought.
 
 ## Implementation review / feedback
 
@@ -29,6 +30,7 @@ When reviewing a built flow (description, screenshot, or JSON), check for:
 - No hardcoded environment-specific values where a connection reference/environment variable should be used.
 - Inefficient patterns: unnecessary loops over "Apply to each" where a filter/bulk action would do, redundant Get/List calls, missing concurrency control where ordering matters.
 - Delegation/throttling exposure relative to the stated expected volume.
+- Every Update/Create-a-row action on Dataverse sets `Last modified by function` (`CF <Cloud Flow Display Name> <utcNow()>`) — flag any Update/Create action missing this field.
 
 ## Documentation from flow JSON
 
